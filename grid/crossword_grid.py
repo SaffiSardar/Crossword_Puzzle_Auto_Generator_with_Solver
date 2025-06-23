@@ -77,6 +77,23 @@ class CrosswordGrid:
                         print(f"❌ Invalid direction '{direction}' for slot {slot_id}")
                 except Exception as e:
                     print(f"❌ Error placing letter '{word[i]}' for slot {slot_id}: {e}")
+    def calculate_fill_rate(self):
+        total_cells = 0
+        filled_cells = 0
+
+        for row in self.grid:
+            for cell in row:
+                if cell == "#":
+                    continue  # Ignore black boxes
+                total_cells += 1
+                if cell != "_":  # Anything other than blank is considered filled
+                    filled_cells += 1
+
+        if total_cells == 0:
+            return 0.0
+
+        return round((filled_cells / total_cells) * 100, 2)
+    
 
 
 

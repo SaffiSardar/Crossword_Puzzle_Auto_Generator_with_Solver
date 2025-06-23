@@ -1,4 +1,5 @@
 from constraint import Problem
+import time  # ✅ Add this at the top
 
 def get_coords(slot):
     r, c = slot['start']
@@ -9,6 +10,8 @@ def get_coords(slot):
 def build_and_solve(slots, word_dict):
     problem = Problem()
     slot_map = {}
+
+    start_time = time.time()  # ⏱️ Start timer
 
     # Step 1: Assign unique IDs to slots like S1, S2, ...
     for i, slot in enumerate(slots):
@@ -42,7 +45,8 @@ def build_and_solve(slots, word_dict):
 
                 problem.addConstraint(constraint_fn, (id1, id2))
 
-    # Step 3: Solve it
     solution = problem.getSolution()
-    return solution, slot_map
+    end_time = time.time()  # ⏱️ Stop timer
 
+    solve_time = round(end_time - start_time, 4)  # seconds, 4 decimal places
+    return solution, slot_map, solve_time

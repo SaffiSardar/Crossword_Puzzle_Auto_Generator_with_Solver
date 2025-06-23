@@ -23,7 +23,8 @@ class CrosswordGUI:
 
         self.grid_obj = CrosswordGrid("assets/sample_grid.txt")
         word_dict = load_word_dict_by_length(15)
-        solution, slot_map = build_and_solve(self.grid_obj.slots, word_dict)
+        solution, slot_map, solve_time = build_and_solve(self.grid_obj.slots, word_dict)
+
 
         if solution:
             self.grid_obj.fill_grid(solution, slot_map)
