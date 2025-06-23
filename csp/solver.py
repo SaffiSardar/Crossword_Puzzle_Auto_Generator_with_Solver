@@ -44,4 +44,5 @@ def build_and_solve(slots, word_dict):
 
     # Step 3: Solve it
     solution = problem.getSolution()
-    return solution
+    return solution, slot_map
+

@@ -40,7 +40,46 @@ class CrosswordGrid:
     
     def display_grid(self):
         for row in self.grid:
-            print(" ".join(['■' if cell == '#' else '.' for cell in row]))
+            print(" ".join(['■' if cell == '#' else cell for cell in row]))
+
+        
+    def fill_grid(self, solution, slot_map):
+        if not solution:
+            print("❌ No solution given to fill the grid.")
+            return
+        if not slot_map:
+            print("❌ No slot_map given to fill the grid.")
+            return
+
+        print(f"\n🧠 Filling {len(solution)} slots into the grid...\n")
+
+        for slot_id, word in solution.items():
+            print(f"Placing '{word}' in slot {slot_id}")
+
+            # extra safety checks
+            if slot_id not in slot_map:
+                print(f"⚠️ Slot ID {slot_id} not found in slot_map.")
+                continue
+
+            slot = slot_map[slot_id]
+            r, c = slot['start']
+            direction = slot['dir']
+
+            print(f" → Position: {slot['start']}, Direction: {direction}")
+
+            for i in range(len(word)):
+                try:
+                    if direction == 'across':
+                        self.grid[r][c + i] = word[i]
+                    elif direction == 'down':
+                        self.grid[r + i][c] = word[i]
+                    else:
+                        print(f"❌ Invalid direction '{direction}' for slot {slot_id}")
+                except Exception as e:
+                    print(f"❌ Error placing letter '{word[i]}' for slot {slot_id}: {e}")
+
+
+
 
 
 
